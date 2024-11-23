@@ -1,0 +1,87 @@
+body {
+    background-color: #f5e7d3;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+.heading {
+    font-size: 3rem;
+    font-weight: bold;
+    color: black;
+    text-shadow: 1px 1px #d6b9a5;
+    margin-bottom: 20px;
+    font-family: "Pacifico", cursive;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: #6c9a6d;
+    margin-bottom: 20px;
+    font-weight: bolder;
+}
+
+form label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #5a4635;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+form .form-control {
+    border: 1px solid #d4b99f;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+table {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 20px;
+    background-color: #fff;
+}
+
+table th, table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: 2px solid #28a745;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #218838;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: 2px solid #dc3545;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    color: #fff;
+}
