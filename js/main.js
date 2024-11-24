@@ -1,11 +1,17 @@
-document.getElementById('bookmarkForm').addEventListener('submit', function(event) {
+const bookmarks = [];
+
+document.getElementById('bookmarkForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const websiteName = document.getElementById('websiteName').value;
     let websiteURL = document.getElementById('websiteURL').value;
 
     if (!isValidURL(websiteURL)) {
-        alert('Please enter a valid URL with the correct format (e.g., http://, https://, www, .com, .org, etc.).');
+        Swal.fire({
+            icon: 'error',
+            title: 'Invalid URL',
+            text: 'Please enter a valid URL with the correct format (e.g., http://, https://, www, .com, .org, etc.).'
+        });
         return;
     }
 
@@ -13,9 +19,8 @@ document.getElementById('bookmarkForm').addEventListener('submit', function(even
         websiteURL = 'http://' + websiteURL;
     }
 
-    if (websiteName && websiteURL) {
-        addBookmark(websiteName, websiteURL);
-    }
+    addBookmark(websiteName, websiteURL);
+    clearForm();
 });
 
 function isValidURL(url) {
@@ -24,32 +29,46 @@ function isValidURL(url) {
 }
 
 function addBookmark(name, url) {
-    const table = document.getElementById('bookmarkTable');
-    const index = table.rows.length + 1;
-
-    const row = document.createElement('tr');
-    row.innerHTML = `
-        <td>${index}</td>
-        <td>${name}</td>
-        <td>
-            <a href="${url}" target="_blank" class="btn btn-success">Visit</a>
-        </td>
-        <td>
-            <button class="btn btn-danger" onclick="deleteBookmark(this)">Delete</button>
-        </td>
-    `;
-    table.appendChild(row);
-
-    document.getElementById('websiteName').value = '';
-    document.getElementById('websiteURL').value = '';
+    bookmarks.push({ name, url });
+    renderBookmarks();
+    Swal.fire({
+        icon: 'success',
+        title: 'Bookmark Added',
+        text: `Successfully added "${name}".`
+    });
 }
 
-function deleteBookmark(button) {
-    const row = button.closest('tr');
-    row.remove();
-
-    const table = document.getElementById('bookmarkTable');
-    Array.from(table.rows).forEach((row, index) => {
-        row.cells[0].innerText = index + 1;
+function deleteBookmark(index) {
+    const deletedBookmark = bookmarks.splice(index, 1);
+    renderBookmarks();
+    Swal.fire({
+        icon: 'info',
+        title: 'Bookmark Deleted',
+        text: `Deleted bookmark "${deletedBookmark[0].name}".`
     });
+}
+
+function renderBookmarks() {
+    const tableBody = document.getElementById('bookmarkTable');
+    tableBody.innerHTML = '';
+
+    bookmarks.forEach((bookmark, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${bookmark.name}</td>
+            <td>
+                <a href="${bookmark.url}" target="_blank" class="btn btn-success btn-sm">Visit</a>
+            </td>
+            <td>
+                <button class="btn btn-danger btn-sm" onclick="deleteBookmark(${index})">Delete</button>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+function clearForm() {
+    document.getElementById('websiteName').value = '';
+    document.getElementById('websiteURL').value = '';
 }
